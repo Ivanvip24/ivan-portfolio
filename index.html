@@ -921,10 +921,106 @@
         }
 
         /* ============================================
+           PARALLAX DIVIDER
+        ============================================ */
+        .parallax-divider {
+            height: 60vh;
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .parallax-divider .parallax-bg {
+            position: absolute;
+            top: -20%;
+            left: 0;
+            width: 100%;
+            height: 140%;
+            background-image: url('earth-parallax.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: 1;
+        }
+
+        .parallax-divider .parallax-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 2;
+        }
+
+        .parallax-divider .parallax-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: var(--white);
+            padding: 0 30px;
+        }
+
+        .parallax-divider .parallax-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 400;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .parallax-divider .parallax-content h2 em {
+            font-style: italic;
+            color: var(--green-300);
+        }
+
+        .parallax-divider .parallax-content p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .parallax-divider .parallax-bg {
+                background-attachment: scroll;
+            }
+        }
+
+        /* ============================================
            PROJECTS
         ============================================ */
         .projects {
-            background: var(--gray-50);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .projects-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .projects-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.92);
+            z-index: 2;
+        }
+
+        .projects .section-container {
+            position: relative;
+            z-index: 3;
         }
 
         .projects-grid {
@@ -1457,8 +1553,22 @@
         </div>
     </section>
 
+    <!-- Parallax Divider -->
+    <div class="parallax-divider">
+        <div class="parallax-bg"></div>
+        <div class="parallax-overlay"></div>
+        <div class="parallax-content reveal">
+            <h2>See the world from <em>above</em></h2>
+            <p>Every perspective reveals something new</p>
+        </div>
+    </div>
+
     <!-- Projects -->
     <section class="projects" id="projects">
+        <video class="projects-video-bg" autoplay muted loop playsinline>
+            <source src="bg-video.mp4" type="video/mp4">
+        </video>
+        <div class="projects-overlay"></div>
         <div class="section-container">
             <div class="section-header reveal">
                 <div class="section-number">03</div>
