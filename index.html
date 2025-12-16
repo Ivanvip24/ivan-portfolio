@@ -1109,6 +1109,379 @@
         }
 
         /* ============================================
+           ANIMATED COUNTERS
+        ============================================ */
+        .counters {
+            background: var(--gray-800);
+            padding: 100px 60px;
+        }
+
+        .counters-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .counter-item {
+            text-align: center;
+        }
+
+        .counter-number {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 6vw, 72px);
+            font-weight: 400;
+            color: var(--green-300);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .counter-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray-400);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .counters-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px 20px;
+            }
+        }
+
+        /* ============================================
+           TIMELINE
+        ============================================ */
+        .timeline {
+            background: var(--white);
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--green-300), var(--green-700));
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 20px 50px;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+            padding-right: 60px;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+            padding-left: 60px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 16px;
+            height: 16px;
+            background: var(--green-500);
+            border: 4px solid var(--white);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--green-300);
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -8px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -8px;
+        }
+
+        .timeline-year {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            font-style: italic;
+            color: var(--green-700);
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+        }
+
+        .timeline-desc {
+            font-size: 15px;
+            color: var(--gray-500);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-container::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                text-align: left !important;
+                padding-left: 60px !important;
+                padding-right: 20px !important;
+            }
+
+            .timeline-item::before {
+                left: 12px !important;
+                right: auto !important;
+            }
+        }
+
+        /* ============================================
+           MARQUEE
+        ============================================ */
+        .marquee-section {
+            background: var(--green-700);
+            padding: 25px 0;
+            overflow: hidden;
+        }
+
+        .marquee-track {
+            display: flex;
+            animation: marquee 25s linear infinite;
+        }
+
+        .marquee-content {
+            display: flex;
+            gap: 60px;
+            padding-right: 60px;
+            flex-shrink: 0;
+        }
+
+        .marquee-item {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-style: italic;
+            color: var(--white);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .marquee-item::after {
+            content: '✦';
+            font-style: normal;
+            font-size: 14px;
+            color: var(--green-300);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ============================================
+           STEP BY STEP / PROCESS
+        ============================================ */
+        .process {
+            background: var(--gray-50);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 40px 30px;
+            background: var(--white);
+            border-radius: 20px;
+            position: relative;
+            transition: all 0.4s;
+        }
+
+        .process-step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+        }
+
+        .process-step::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -15px;
+            width: 30px;
+            height: 2px;
+            background: var(--green-300);
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .process-number {
+            width: 50px;
+            height: 50px;
+            background: var(--green-300);
+            color: var(--gray-800);
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 600;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .process-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .process-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 10px;
+        }
+
+        .process-desc {
+            font-size: 14px;
+            color: var(--gray-500);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 1024px) {
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-step:nth-child(2)::after,
+            .process-step:nth-child(4)::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step::after {
+                display: none;
+            }
+        }
+
+        /* ============================================
+           TESTIMONIALS
+        ============================================ */
+        .testimonials {
+            background: var(--white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--gray-50);
+            border-radius: 24px;
+            padding: 40px;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            background: var(--white);
+            border: 1px solid var(--green-300);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            color: var(--green-300);
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            line-height: 1;
+            opacity: 0.5;
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--gray-600);
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--green-500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .testimonial-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .testimonial-info span {
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        @media (max-width: 1024px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================
            CONTACT
         ============================================ */
         .contact {
@@ -1482,11 +1855,102 @@
         </div>
     </section>
 
+    <!-- Animated Counters -->
+    <section class="counters">
+        <div class="counters-grid">
+            <div class="counter-item reveal">
+                <div class="counter-number" data-target="3">0</div>
+                <div class="counter-label">Languages</div>
+            </div>
+            <div class="counter-item reveal">
+                <div class="counter-number" data-target="50">0</div>
+                <div class="counter-label">Projects</div>
+            </div>
+            <div class="counter-item reveal">
+                <div class="counter-number" data-target="5">0</div>
+                <div class="counter-label">Years Experience</div>
+            </div>
+            <div class="counter-item reveal">
+                <div class="counter-number" data-target="100">0</div>
+                <div class="counter-label">Happy Clients</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="timeline" id="journey">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-number">02</div>
+                <h2 class="section-title">My <em>journey</em> so far.</h2>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2019</div>
+                    <h3 class="timeline-title">Physics Studies</h3>
+                    <p class="timeline-desc">Began studying Physics, developing analytical thinking and problem-solving skills.</p>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2020</div>
+                    <h3 class="timeline-title">Design Discovery</h3>
+                    <p class="timeline-desc">Discovered passion for visual design and video editing during pandemic creative exploration.</p>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2021</div>
+                    <h3 class="timeline-title">AXKAN Founded</h3>
+                    <p class="timeline-desc">Founded AXKAN Souvenirs, becoming "Detonadores de Orgullo Mexicano."</p>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2022</div>
+                    <h3 class="timeline-title">French Teaching</h3>
+                    <p class="timeline-desc">Started teaching French, sharing language and culture with students.</p>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2023</div>
+                    <h3 class="timeline-title">Freelance Growth</h3>
+                    <p class="timeline-desc">Expanded freelance design and video production services internationally.</p>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2024</div>
+                    <h3 class="timeline-title">New Horizons</h3>
+                    <p class="timeline-desc">Continuing to merge physics, design, and linguistics into unique perspectives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee-section">
+        <div class="marquee-track">
+            <div class="marquee-content">
+                <span class="marquee-item">Physics</span>
+                <span class="marquee-item">Design</span>
+                <span class="marquee-item">Video Editing</span>
+                <span class="marquee-item">Spanish</span>
+                <span class="marquee-item">French</span>
+                <span class="marquee-item">English</span>
+                <span class="marquee-item">Strategy</span>
+                <span class="marquee-item">Creative Direction</span>
+            </div>
+            <div class="marquee-content">
+                <span class="marquee-item">Physics</span>
+                <span class="marquee-item">Design</span>
+                <span class="marquee-item">Video Editing</span>
+                <span class="marquee-item">Spanish</span>
+                <span class="marquee-item">French</span>
+                <span class="marquee-item">English</span>
+                <span class="marquee-item">Strategy</span>
+                <span class="marquee-item">Creative Direction</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Skills -->
     <section class="skills" id="skills">
         <div class="section-container">
             <div class="section-header reveal">
-                <div class="section-number">02</div>
+                <div class="section-number">03</div>
                 <h2 class="section-title">Different lenses for <em>different challenges</em>.</h2>
             </div>
 
@@ -1555,6 +2019,43 @@
         </div>
     </section>
 
+    <!-- Process / Step By Step -->
+    <section class="process">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-number">04</div>
+                <h2 class="section-title">How I <em>work</em>.</h2>
+            </div>
+
+            <div class="process-grid">
+                <div class="process-step reveal">
+                    <div class="process-number">1</div>
+                    <div class="process-icon">👂</div>
+                    <h3 class="process-title">Listen</h3>
+                    <p class="process-desc">Understanding your vision, goals, and the story you want to tell.</p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="process-number">2</div>
+                    <div class="process-icon">🔬</div>
+                    <h3 class="process-title">Analyze</h3>
+                    <p class="process-desc">Applying scientific thinking to find the best approach and strategy.</p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="process-number">3</div>
+                    <div class="process-icon">🎨</div>
+                    <h3 class="process-title">Create</h3>
+                    <p class="process-desc">Bringing ideas to life through design, video, or strategic solutions.</p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="process-number">4</div>
+                    <div class="process-icon">✨</div>
+                    <h3 class="process-title">Refine</h3>
+                    <p class="process-desc">Iterating until the result exceeds expectations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Parallax Divider -->
     <div class="parallax-divider">
         <div class="parallax-bg"></div>
@@ -1573,7 +2074,7 @@
         <div class="projects-overlay"></div>
         <div class="section-container">
             <div class="section-header reveal">
-                <div class="section-number">03</div>
+                <div class="section-number">05</div>
                 <h2 class="section-title">Where vision becomes <em>reality</em>.</h2>
             </div>
 
@@ -1616,6 +2117,49 @@
                         <span class="project-tag">Consulting</span>
                         <h3 class="project-name">Strategic Design</h3>
                         <p class="project-desc">Helping businesses find their visual voice. Brand strategy meets design execution.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-number">06</div>
+                <h2 class="section-title">What people <em>say</em>.</h2>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <p class="testimonial-text">Iván brings a unique perspective to every project. His ability to see things differently transformed our brand identity completely.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">🇲🇽</div>
+                        <div class="testimonial-info">
+                            <h4>María González</h4>
+                            <span>Business Owner</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <p class="testimonial-text">His French lessons go beyond language - he teaches you to think in a new way. Highly recommended for anyone serious about learning.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">🎓</div>
+                        <div class="testimonial-info">
+                            <h4>Carlos Ramírez</h4>
+                            <span>French Student</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <p class="testimonial-text">The video work exceeded all expectations. Iván understood our vision and elevated it to something we couldn't have imagined.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">🎬</div>
+                        <div class="testimonial-info">
+                            <h4>Ana Martínez</h4>
+                            <span>Creative Director</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1771,6 +2315,33 @@
                 });
             }, { threshold: 0.15 });
             reveals.forEach(r => observer.observe(r));
+
+            // Animated Counters
+            const counters = document.querySelectorAll('.counter-number');
+            const counterObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        const duration = 2000;
+                        const step = target / (duration / 16);
+                        let current = 0;
+
+                        const updateCounter = () => {
+                            current += step;
+                            if (current < target) {
+                                counter.textContent = Math.floor(current) + '+';
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.textContent = target + '+';
+                            }
+                        };
+                        updateCounter();
+                        counterObserver.unobserve(counter);
+                    }
+                });
+            }, { threshold: 0.5 });
+            counters.forEach(c => counterObserver.observe(c));
 
             // Smooth scroll
             document.querySelectorAll('a[href^="#"]').forEach(a => {
