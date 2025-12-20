@@ -1581,9 +1581,11 @@
             border-radius: 20px;
             overflow: hidden;
             cursor: ew-resize;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        .image-compare-container img {
+        .image-compare-container .img-after {
             width: 100%;
             display: block;
         }
@@ -1595,14 +1597,17 @@
             width: 50%;
             height: 100%;
             overflow: hidden;
+            pointer-events: none;
         }
 
-        .image-compare-overlay img {
+        .image-compare-overlay .img-before {
             position: absolute;
             top: 0;
             left: 0;
-            width: 200%;
+            height: 100%;
+            width: auto;
             max-width: none;
+            object-fit: cover;
         }
 
         .image-compare-slider {
@@ -1611,31 +1616,33 @@
             left: 50%;
             width: 4px;
             height: 100%;
-            background: var(--green-300);
+            background: var(--white);
             transform: translateX(-50%);
             cursor: ew-resize;
+            z-index: 10;
         }
 
-        .image-compare-slider::before,
-        .image-compare-slider::after {
-            content: '';
+        .image-compare-handle {
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 40px;
-            background: var(--green-300);
-            border-radius: 50%;
-        }
-
-        .image-compare-slider::before {
             top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
-            box-shadow: 0 0 20px rgba(193, 255, 28, 0.5);
+            width: 50px;
+            height: 50px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            pointer-events: none;
         }
 
-        .image-compare-slider::after {
-            display: none;
+        .image-compare-handle::before {
+            content: '◀ ▶';
+            font-size: 12px;
+            color: var(--gray-800);
+            letter-spacing: 2px;
         }
 
         .compare-label {
@@ -1649,6 +1656,8 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             border-radius: 100px;
+            z-index: 5;
+            pointer-events: none;
         }
 
         .compare-label.before {
@@ -2476,11 +2485,13 @@
 
             <!-- Image Compare -->
             <div class="image-compare-container reveal" id="imageCompare">
-                <img src="gallery-1.jpg" alt="After">
-                <div class="image-compare-overlay">
-                    <img src="gallery-3.jpg" alt="Before">
+                <img class="img-after" src="gallery-3.jpg" alt="Cool tones">
+                <div class="image-compare-overlay" id="compareOverlay">
+                    <img class="img-before" src="gallery-1.jpg" alt="Warm tones">
                 </div>
-                <div class="image-compare-slider"></div>
+                <div class="image-compare-slider" id="compareSlider">
+                    <div class="image-compare-handle"></div>
+                </div>
                 <span class="compare-label before">Warm</span>
                 <span class="compare-label after">Cool</span>
             </div>
@@ -2735,30 +2746,48 @@
             // Image Compare Slider
             const compareContainer = document.getElementById('imageCompare');
             if (compareContainer) {
-                const slider = compareContainer.querySelector('.image-compare-slider');
-                const overlay = compareContainer.querySelector('.image-compare-overlay');
+                const slider = document.getElementById('compareSlider');
+                const overlay = document.getElementById('compareOverlay');
+                const beforeImg = overlay.querySelector('.img-before');
                 let isDown = false;
+
+                // Set initial width of before image to match container
+                const setBeforeImgWidth = () => {
+                    beforeImg.style.width = compareContainer.offsetWidth + 'px';
+                };
+                setBeforeImgWidth();
+                window.addEventListener('resize', setBeforeImgWidth);
 
                 const updatePosition = (x) => {
                     const rect = compareContainer.getBoundingClientRect();
                     let position = ((x - rect.left) / rect.width) * 100;
-                    position = Math.max(0, Math.min(100, position));
+                    position = Math.max(5, Math.min(95, position));
                     overlay.style.width = position + '%';
                     slider.style.left = position + '%';
                 };
 
-                compareContainer.addEventListener('mousedown', () => isDown = true);
-                compareContainer.addEventListener('mouseup', () => isDown = false);
-                compareContainer.addEventListener('mouseleave', () => isDown = false);
-                compareContainer.addEventListener('mousemove', (e) => {
-                    if (isDown) updatePosition(e.clientX);
+                compareContainer.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    updatePosition(e.clientX);
                 });
-                compareContainer.addEventListener('click', (e) => updatePosition(e.clientX));
+                document.addEventListener('mouseup', () => isDown = false);
+                document.addEventListener('mousemove', (e) => {
+                    if (isDown) {
+                        e.preventDefault();
+                        updatePosition(e.clientX);
+                    }
+                });
 
                 // Touch support
-                compareContainer.addEventListener('touchmove', (e) => {
+                compareContainer.addEventListener('touchstart', (e) => {
+                    isDown = true;
                     updatePosition(e.touches[0].clientX);
                 });
+                document.addEventListener('touchend', () => isDown = false);
+                compareContainer.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    updatePosition(e.touches[0].clientX);
+                }, { passive: false });
             }
 
             // Accordion
