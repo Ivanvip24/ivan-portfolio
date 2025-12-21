@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="45" viewBox="0 0 320 45">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&amp;display=swap');
+    </style>
+  </defs>
+  <text x="0" y="35" font-family="'Playfair Display', Georgia, serif" font-size="32" font-style="italic" fill="#1A1A1A" letter-spacing="0.5">Iván Valencia Pérez</text>
+</svg>
